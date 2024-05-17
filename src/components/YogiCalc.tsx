@@ -136,7 +136,11 @@ const YogiCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          <Button ref={formBtnEl} type="submit"></Button>
+          <Button
+            ref={formBtnEl}
+            onClick={handleSubmit(onSubmit)}
+            hidden
+          ></Button>
         </form>
       </div>
     </>

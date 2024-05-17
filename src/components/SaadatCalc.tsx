@@ -86,7 +86,7 @@ const SaadatCalc = () => {
       )}
       <div>
         <h2 className="mb-10 mt-4 block text-center text-lg font-bold">
-          {HEADINGS.yogiCalcTitle}
+          {HEADINGS.saadatCalcTitle}
         </h2>
         <form className="space-y-10 p-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-3">
@@ -156,7 +156,11 @@ const SaadatCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          <Button ref={formBtnEl} type="submit"></Button>
+          <Button
+            ref={formBtnEl}
+            onClick={handleSubmit(onSubmit)}
+            type="submit"
+          ></Button>
         </form>
       </div>
     </>
