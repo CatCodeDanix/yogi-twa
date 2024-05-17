@@ -57,6 +57,16 @@ const YogiCalc = () => {
       moonMinute,
     } = data;
 
+    if (
+      !sunMonth ||
+      !sunDegree ||
+      !sunMinute ||
+      !moonMonth ||
+      !moonDegree ||
+      !moonMinute
+    )
+      return;
+
     const minuteSum = +sunMinute + +moonMinute;
 
     const totalDegree =

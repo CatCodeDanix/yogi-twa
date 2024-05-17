@@ -60,6 +60,20 @@ const SaadatCalc = () => {
       moonMinute,
     } = data;
 
+    if (
+      !ascDayOrNight ||
+      !ascMonth ||
+      !ascDegree ||
+      !ascMinute ||
+      !sunMonth ||
+      !sunDegree ||
+      !sunMinute ||
+      !moonMonth ||
+      !moonDegree ||
+      !moonMinute
+    )
+      return;
+
     const degs = {
       totalSun: totalDegCalc(sunMonth, sunDegree, sunMinute),
       totalMoon: totalDegCalc(moonMonth, moonDegree, moonMinute),
