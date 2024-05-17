@@ -160,6 +160,7 @@ const SaadatCalc = () => {
             ref={formBtnEl}
             onClick={handleSubmit(onSubmit)}
             type="submit"
+            hidden
           ></Button>
         </form>
       </div>
