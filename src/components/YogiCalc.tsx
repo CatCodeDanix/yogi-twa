@@ -2,9 +2,10 @@ import { BUTTONS, HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CustomModal from './CustomModal';
 import Yogi from './Yogi';
+import { useMainButton } from '@tma.js/sdk-react';
 
 interface IFormInput {
   sunMonth: number;
@@ -28,6 +29,22 @@ const YogiCalc = () => {
   const [modalISOpen, setModalIsOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
+
+  const mb = useMainButton();
+  const formEl = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    mb.setParams({
+      text: 'محاسبه',
+      textColor: '#24A1DE',
+      isEnabled: true,
+      isVisible: true,
+    });
+
+    return mb.on('click', () => {
+      formEl?.current?.submit();
+    });
+  }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     // setModalIsOpen(true);
@@ -78,7 +95,11 @@ const YogiCalc = () => {
         <h2 className="mb-10 mt-4 block text-center text-lg font-bold">
           {HEADINGS.yogiCalcTitle}
         </h2>
-        <form className="space-y-10 p-3" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          ref={formEl}
+          className="space-y-10 p-3"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.sun}</h3>
             <Select label={INPUTS.month} {...register('sunMonth')}>
@@ -119,9 +140,9 @@ const YogiCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          <Button type="submit" fullWidth color="primary">
+          {/* <Button type="submit" fullWidth color="primary">
             {BUTTONS.calculate}
-          </Button>
+          </Button> */}
         </form>
       </div>
     </>

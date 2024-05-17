@@ -2,8 +2,16 @@ import { NavLink } from 'react-router-dom';
 import { HEADINGS } from './constants/dictionary';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import AstroAnimation from './assets/lotties/astro.json?url';
+import { useMiniApp } from '@tma.js/sdk-react';
+import { useEffect } from 'react';
 
 const App = () => {
+  const miniApp = useMiniApp();
+
+  useEffect(() => {
+    miniApp.ready();
+  }, []);
+
   return (
     <main className="m-3 text-center">
       <h1 className="mb-10 mt-8 block text-2xl font-bold">
