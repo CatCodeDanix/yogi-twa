@@ -149,6 +149,7 @@ const YogiCalc = () => {
           <Button
             ref={formBtnEl}
             onClick={handleSubmit(onSubmit)}
+            className="hidden"
             hidden
           ></Button>
         </form>

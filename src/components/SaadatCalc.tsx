@@ -174,6 +174,7 @@ const SaadatCalc = () => {
             ref={formBtnEl}
             onClick={handleSubmit(onSubmit)}
             type="submit"
+            className="hidden"
             hidden
           ></Button>
         </form>
