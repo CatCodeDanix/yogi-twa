@@ -1,5 +1,5 @@
 import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
-import {  Input, Select, SelectItem } from '@nextui-org/react';
+import { Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, NUMS, dayNight } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
@@ -36,7 +36,7 @@ const SaadatCalc = () => {
   useEffect(() => {
     mb.setParams({
       text: 'محاسبه',
-      textColor: '#24A1DE',
+      textColor: '#111',
       isEnabled: true,
       isVisible: true,
     });

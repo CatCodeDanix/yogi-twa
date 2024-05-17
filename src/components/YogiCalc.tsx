@@ -36,7 +36,7 @@ const YogiCalc = () => {
   useEffect(() => {
     mb.setParams({
       text: 'محاسبه',
-      textColor: '#24A1DE',
+      textColor: '#111',
       isEnabled: true,
       isVisible: true,
     });
