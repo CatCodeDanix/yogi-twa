@@ -1,5 +1,5 @@
 import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
-import { Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, NUMS, dayNight } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
@@ -31,7 +31,7 @@ const SaadatCalc = () => {
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
   const mb = useMainButton();
-  const formEl = useRef<HTMLFormElement>(null);
+  const formBtnEl = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     mb.setParams({
@@ -42,7 +42,7 @@ const SaadatCalc = () => {
     });
 
     return mb.on('click', () => {
-      formEl?.current?.submit();
+      formBtnEl?.current?.click();
     });
   }, []);
 
@@ -88,11 +88,7 @@ const SaadatCalc = () => {
         <h2 className="mb-10 mt-4 block text-center text-lg font-bold">
           {HEADINGS.yogiCalcTitle}
         </h2>
-        <form
-          ref={formEl}
-          className="space-y-10 p-3"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="space-y-10 p-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.asc}</h3>
             <Select label={INPUTS.dayOrNight} {...register('ascDayOrNight')}>
@@ -160,14 +156,7 @@ const SaadatCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          {/* <Button
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            fullWidth
-            color="primary"
-          >
-            {BUTTONS.calculate}
-          </Button> */}
+          <Button ref={formBtnEl} type="submit"></Button>
         </form>
       </div>
     </>
