@@ -12,8 +12,6 @@
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.5.9",
     "@nextui-org/react": "^2.3.6",
-    "@tma.js/sdk": "^2.2.0",
-    "@tma.js/sdk-react": "^2.2.0",
     "@twa-dev/sdk": "^7.0.0",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "framer-motion": "^11.2.5",

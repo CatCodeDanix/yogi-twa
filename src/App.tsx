@@ -2,14 +2,12 @@ import { NavLink } from 'react-router-dom';
 import { HEADINGS } from './constants/dictionary';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import AstroAnimation from './assets/lotties/astro.json?url';
-import { useMiniApp } from '@tma.js/sdk-react';
 import { useEffect } from 'react';
+import WebApp from '@twa-dev/sdk';
 
 const App = () => {
-  const miniApp = useMiniApp();
-
   useEffect(() => {
-    miniApp.ready();
+    WebApp.ready();
   }, []);
 
   return (

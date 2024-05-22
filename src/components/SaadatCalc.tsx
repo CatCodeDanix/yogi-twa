@@ -2,11 +2,10 @@ import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, NUMS, dayNight } from '../constants/constants';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import CustomModal from './CustomModal';
 import { saadatGheybCalc, totalDegCalc } from '../utils';
 import SaadatGheyb from './SaadatGheyb';
-import { useMainButton } from '@tma.js/sdk-react';
 
 interface IFormInput {
   ascMonth: number;
@@ -30,21 +29,7 @@ const SaadatCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
-  const mb = useMainButton();
   const formBtnEl = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    mb.setParams({
-      text: 'محاسبه',
-      textColor: '#111',
-      isEnabled: true,
-      isVisible: true,
-    });
-
-    return mb.on('click', () => {
-      formBtnEl?.current?.click();
-    });
-  }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     const {
