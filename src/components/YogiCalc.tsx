@@ -2,7 +2,7 @@ import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 
 import CustomModal from './CustomModal';
@@ -49,10 +49,12 @@ const YogiCalc = () => {
   //   });
   // }, [mb]);
 
+  const mainBtnHandler = useCallback(() => {
+    console.log('I get here');
+    formBtnRef?.current?.click();
+  }, []);
+
   useEffect(() => {
-    const mainBtnHandler = () => {
-      formBtnRef.current?.click();
-    };
     WebApp.MainButton.setText('محاسبه');
     WebApp.MainButton.isVisible = true;
     WebApp.MainButton.isActive = true;
@@ -61,6 +63,12 @@ const YogiCalc = () => {
     return () => {
       WebApp.MainButton.offClick(mainBtnHandler);
     };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(WebApp.MainButton);
+    }, 3000);
   }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
