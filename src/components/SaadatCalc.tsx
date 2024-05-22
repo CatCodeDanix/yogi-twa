@@ -211,12 +211,9 @@ const SaadatCalc = () => {
           <button
             type="submit"
             ref={formBtnRef}
-            // hidden
-            // aria-hidden="true"
-            className="w-full bg-blue-500"
-          >
-            qwe
-          </button>
+            hidden
+            aria-hidden="true"
+          ></button>
         </form>
       </div>
     </>
