@@ -1,13 +1,12 @@
 import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
+import { Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 
 import CustomModal from './CustomModal';
 import Yogi from './Yogi';
-// import { useMainButton } from '@tma.js/sdk-react';
 
 interface IFormInput {
   sunMonth: number;
@@ -34,27 +33,10 @@ const YogiCalc = () => {
 
   const formBtnRef = useRef<HTMLButtonElement>(null);
 
-  // const mb = useMainButton();
-  // useEffect(() => {
-  //   if (mb) {
-  //     mb.setParams({
-  //       text: 'محاسبه',
-  //       textColor: '#111',
-  //       isEnabled: true,
-  //       isVisible: true,
-  //     });
-  //   }
-  //   return mb.on('click', () => {
-  //     formBtnRef?.current?.click();
-  //   });
-  // }, [mb]);
-
-  const mainBtnHandler = useCallback(() => {
-    console.log('I get here');
-    formBtnRef?.current?.click();
-  }, []);
-
   useEffect(() => {
+    const mainBtnHandler = () => {
+      formBtnRef?.current?.click();
+    };
     WebApp.MainButton.setText('محاسبه');
     WebApp.MainButton.isVisible = true;
     WebApp.MainButton.isActive = true;
@@ -171,12 +153,12 @@ const YogiCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          <Button
+          <button
+            type="submit"
             ref={formBtnRef}
-            onClick={handleSubmit(onSubmit)}
-            className="hidden"
             hidden
-          ></Button>
+            aria-hidden="true"
+          ></button>
         </form>
       </div>
     </>

@@ -2,10 +2,11 @@ import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, NUMS, dayNight } from '../constants/constants';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CustomModal from './CustomModal';
 import { saadatGheybCalc, totalDegCalc } from '../utils';
 import SaadatGheyb from './SaadatGheyb';
+import WebApp from '@twa-dev/sdk';
 
 interface IFormInput {
   ascMonth: number;
@@ -29,7 +30,21 @@ const SaadatCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
-  const formBtnEl = useRef<HTMLButtonElement>(null);
+  const formBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const mainBtnHandler = () => {
+      formBtnRef?.current?.click();
+    };
+    WebApp.MainButton.setText('محاسبه');
+    WebApp.MainButton.isVisible = true;
+    WebApp.MainButton.isActive = true;
+    WebApp.MainButton.onClick(mainBtnHandler);
+
+    return () => {
+      WebApp.MainButton.offClick(mainBtnHandler);
+    };
+  }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     const {
@@ -155,13 +170,12 @@ const SaadatCalc = () => {
               {...register('moonMinute', { max: maxMinute })}
             />
           </div>
-          <Button
-            ref={formBtnEl}
-            onClick={handleSubmit(onSubmit)}
+          <button
             type="submit"
-            className="hidden"
+            ref={formBtnRef}
             hidden
-          ></Button>
+            aria-hidden="true"
+          ></button>
         </form>
       </div>
     </>
