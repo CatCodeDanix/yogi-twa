@@ -186,13 +186,17 @@ const SaadatCalc = () => {
           </div>
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.moon}</h3>
-            <Select label={INPUTS.month} {...register('moonMonth')}>
+            <Autocomplete
+              label={INPUTS.month}
+              {...register('moonMonth')}
+              fullWidth
+            >
               {MONTHS.map(month => (
-                <SelectItem key={month.value} value={month.value}>
+                <AutocompleteItem key={month.value} value={month.value}>
                   {month.name}
-                </SelectItem>
+                </AutocompleteItem>
               ))}
-            </Select>
+            </Autocomplete>
             <Input
               type="number"
               label={INPUTS.degree}
@@ -207,9 +211,12 @@ const SaadatCalc = () => {
           <button
             type="submit"
             ref={formBtnRef}
-            hidden
-            aria-hidden="true"
-          ></button>
+            // hidden
+            // aria-hidden="true"
+            className="w-full bg-blue-500"
+          >
+            qwe
+          </button>
         </form>
       </div>
     </>
