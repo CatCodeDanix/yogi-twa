@@ -3,9 +3,11 @@ import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
+import WebApp from '@twa-dev/sdk';
+
 import CustomModal from './CustomModal';
 import Yogi from './Yogi';
-import { useMainButton } from '@tma.js/sdk-react';
+// import { useMainButton } from '@tma.js/sdk-react';
 
 interface IFormInput {
   sunMonth: number;
@@ -30,20 +32,33 @@ const YogiCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
-  const mb = useMainButton();
-  const formBtnEl = useRef<HTMLButtonElement>(null);
+  // const mb = useMainButton();
+  const formBtnRef = useRef<HTMLButtonElement>(null);
+  // useEffect(() => {
+  //   mb.setParams({
+  //     text: 'محاسبه',
+  //     textColor: '#111',
+  //     isEnabled: true,
+  //     isVisible: true,
+  //   });
+
+  //   return mb.on('click', () => {
+  //     formBtnEl?.current?.click();
+  //   });
+  // }, []);
 
   useEffect(() => {
-    mb.setParams({
-      text: 'محاسبه',
-      textColor: '#111',
-      isEnabled: true,
-      isVisible: true,
-    });
+    const mainBtnHandler = () => {
+      formBtnRef.current?.click();
+    };
+    WebApp.MainButton.setText('محاسبه');
+    WebApp.MainButton.isVisible = true;
+    WebApp.MainButton.isActive = true;
+    WebApp.MainButton.onClick(mainBtnHandler);
 
-    return mb.on('click', () => {
-      formBtnEl?.current?.click();
-    });
+    return () => {
+      WebApp.MainButton.offClick(mainBtnHandler);
+    };
   }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
@@ -147,7 +162,7 @@ const YogiCalc = () => {
             />
           </div>
           <Button
-            ref={formBtnEl}
+            ref={formBtnRef}
             onClick={handleSubmit(onSubmit)}
             className="hidden"
             hidden
