@@ -9,7 +9,6 @@ const App = () => {
   useEffect(() => {
     WebApp.ready();
     WebApp.expand();
-    WebApp.BackButton.show();
   }, []);
 
   return (

@@ -13,6 +13,7 @@ import CustomModal from './CustomModal';
 import { saadatGheybCalc, totalDegCalc } from '../utils';
 import SaadatGheyb from './SaadatGheyb';
 import WebApp from '@twa-dev/sdk';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
   ascMonth: number | string;
@@ -36,6 +37,8 @@ const SaadatCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
+  const navigate = useNavigate();
+
   const formBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -49,6 +52,19 @@ const SaadatCalc = () => {
 
     return () => {
       WebApp.MainButton.offClick(mainBtnHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    const backBtnHandler = () => {
+      navigate('..');
+    };
+
+    WebApp.BackButton.show();
+    WebApp.MainButton.onClick(backBtnHandler);
+
+    return () => {
+      WebApp.MainButton.offClick(backBtnHandler);
     };
   }, []);
 

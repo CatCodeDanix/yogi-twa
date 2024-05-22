@@ -7,6 +7,7 @@ import WebApp from '@twa-dev/sdk';
 
 import CustomModal from './CustomModal';
 import Yogi from './Yogi';
+import { useNavigate } from 'react-router-dom';
 
 interface IFormInput {
   sunMonth: number | string;
@@ -31,6 +32,8 @@ const YogiCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
+  const navigate = useNavigate();
+
   const formBtnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -48,9 +51,16 @@ const YogiCalc = () => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log(WebApp.MainButton);
-    }, 3000);
+    const backBtnHandler = () => {
+      navigate('..');
+    };
+
+    WebApp.BackButton.show();
+    WebApp.MainButton.onClick(backBtnHandler);
+
+    return () => {
+      WebApp.MainButton.offClick(backBtnHandler);
+    };
   }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
