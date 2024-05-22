@@ -25,5 +25,5 @@
 }
 
 html {
-  background-color: unset;
+  background-color: unset !important;
 }
