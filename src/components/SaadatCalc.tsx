@@ -1,5 +1,11 @@
 import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
-import { Input, Select, SelectItem } from '@nextui-org/react';
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Input,
+  Select,
+  SelectItem,
+} from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, NUMS, dayNight } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
@@ -9,14 +15,14 @@ import SaadatGheyb from './SaadatGheyb';
 import WebApp from '@twa-dev/sdk';
 
 interface IFormInput {
-  ascMonth: number;
+  ascMonth: number | string;
   ascDayOrNight: 'روز' | 'شب';
   ascDegree: number;
   ascMinute: number;
-  sunMonth: number;
+  sunMonth: number | string;
   sunDegree: number;
   sunMinute: number;
-  moonMonth: number;
+  moonMonth: number | string;
   moonDegree: number;
   moonMinute: number;
 }
@@ -47,7 +53,7 @@ const SaadatCalc = () => {
   }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    const {
+    let {
       ascDayOrNight,
       ascMonth,
       ascDegree,
@@ -59,6 +65,10 @@ const SaadatCalc = () => {
       moonDegree,
       moonMinute,
     } = data;
+
+    sunMonth = MONTHS.find(item => item.name === sunMonth)?.value as number;
+    moonMonth = MONTHS.find(item => item.name === moonMonth)?.value as number;
+    ascMonth = MONTHS.find(item => item.name === ascMonth)?.value as number;
 
     if (
       !ascDayOrNight ||
@@ -112,13 +122,17 @@ const SaadatCalc = () => {
                 </SelectItem>
               ))}
             </Select>
-            <Select label={INPUTS.month} {...register('ascMonth')}>
+            <Autocomplete
+              label={INPUTS.month}
+              {...register('ascMonth')}
+              fullWidth
+            >
               {MONTHS.map(month => (
-                <SelectItem key={month.value} value={month.value}>
+                <AutocompleteItem key={month.value} value={month.value}>
                   {month.name}
-                </SelectItem>
+                </AutocompleteItem>
               ))}
-            </Select>
+            </Autocomplete>
             <Input
               type="number"
               label={INPUTS.degree}
@@ -132,13 +146,17 @@ const SaadatCalc = () => {
           </div>
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.sun}</h3>
-            <Select label={INPUTS.month} {...register('sunMonth')}>
+            <Autocomplete
+              label={INPUTS.month}
+              {...register('sunMonth')}
+              fullWidth
+            >
               {MONTHS.map(month => (
-                <SelectItem key={month.value} value={month.value}>
+                <AutocompleteItem key={month.value} value={month.value}>
                   {month.name}
-                </SelectItem>
+                </AutocompleteItem>
               ))}
-            </Select>
+            </Autocomplete>
             <Input
               type="number"
               label={INPUTS.degree}

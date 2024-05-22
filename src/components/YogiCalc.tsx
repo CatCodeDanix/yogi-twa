@@ -1,5 +1,5 @@
 import { HEADINGS, INPUTS, LABELS } from '../constants/dictionary';
-import { Input, Select, SelectItem } from '@nextui-org/react';
+import { Autocomplete, AutocompleteItem, Input } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
@@ -9,10 +9,10 @@ import CustomModal from './CustomModal';
 import Yogi from './Yogi';
 
 interface IFormInput {
-  sunMonth: number;
+  sunMonth: number | string;
   sunDegree: number;
   sunMinute: number;
-  moonMonth: number;
+  moonMonth: number | string;
   moonDegree: number;
   moonMinute: number;
 }
@@ -55,14 +55,11 @@ const YogiCalc = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     // setModalIsOpen(true);
-    const {
-      sunMonth,
-      sunDegree,
-      sunMinute,
-      moonMonth,
-      moonDegree,
-      moonMinute,
-    } = data;
+    let { sunMonth, sunDegree, sunMinute, moonMonth, moonDegree, moonMinute } =
+      data;
+
+    sunMonth = MONTHS.find(item => item.name === sunMonth)?.value as number;
+    moonMonth = MONTHS.find(item => item.name === moonMonth)?.value as number;
 
     if (
       !sunMonth ||
@@ -115,13 +112,18 @@ const YogiCalc = () => {
         <form className="space-y-10 p-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.sun}</h3>
-            <Select label={INPUTS.month} {...register('sunMonth')}>
+
+            <Autocomplete
+              label={INPUTS.month}
+              {...register('sunMonth')}
+              fullWidth
+            >
               {MONTHS.map(month => (
-                <SelectItem key={month.value} value={month.value}>
+                <AutocompleteItem key={month.value} value={month.value}>
                   {month.name}
-                </SelectItem>
+                </AutocompleteItem>
               ))}
-            </Select>
+            </Autocomplete>
             <Input
               type="number"
               label={INPUTS.degree}
@@ -135,13 +137,17 @@ const YogiCalc = () => {
           </div>
           <div className="space-y-3">
             <h3 className="font-bold">{LABELS.moon}</h3>
-            <Select label={INPUTS.month} {...register('moonMonth')}>
+            <Autocomplete
+              label={INPUTS.month}
+              {...register('moonMonth')}
+              fullWidth
+            >
               {MONTHS.map(month => (
-                <SelectItem key={month.value} value={month.value}>
+                <AutocompleteItem key={month.value} value={month.value}>
                   {month.name}
-                </SelectItem>
+                </AutocompleteItem>
               ))}
-            </Select>
+            </Autocomplete>
             <Input
               type="number"
               label={INPUTS.degree}
