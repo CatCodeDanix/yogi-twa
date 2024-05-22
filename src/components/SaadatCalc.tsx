@@ -61,10 +61,10 @@ const SaadatCalc = () => {
     };
 
     WebApp.BackButton.show();
-    WebApp.MainButton.onClick(backBtnHandler);
+    WebApp.BackButton.onClick(backBtnHandler);
 
     return () => {
-      WebApp.MainButton.offClick(backBtnHandler);
+      WebApp.BackButton.offClick(backBtnHandler);
     };
   }, []);
 

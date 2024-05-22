@@ -2,13 +2,19 @@ import { NavLink } from 'react-router-dom';
 import { HEADINGS } from './constants/dictionary';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import AstroAnimation from './assets/lotties/astro.json?url';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import WebApp from '@twa-dev/sdk';
 
 const App = () => {
+  const [isFirstTime, setIsFirstTime] = useState(true);
+
   useEffect(() => {
-    WebApp.ready();
-    WebApp.expand();
+    if (isFirstTime) {
+      WebApp.ready();
+      WebApp.expand();
+      setIsFirstTime(false);
+    }
+    WebApp.BackButton.hide();
   }, []);
 
   return (
