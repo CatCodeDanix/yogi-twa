@@ -15,6 +15,7 @@ const App = () => {
       setIsFirstTime(false);
     }
     WebApp.BackButton.hide();
+    WebApp.MainButton.hide();
   }, []);
 
   return (
