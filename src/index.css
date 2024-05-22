@@ -23,3 +23,7 @@
 ::-ms-reveal {
   display: none;
 }
+
+html {
+  background-color: unset;
+}
