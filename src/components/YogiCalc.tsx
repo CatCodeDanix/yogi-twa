@@ -3,11 +3,10 @@ import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { MONTHS, yogis } from '../constants/constants';
 import { useEffect, useRef, useState } from 'react';
-// import WebApp from '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk';
 
 import CustomModal from './CustomModal';
 import Yogi from './Yogi';
-import { useMainButton } from '@tma.js/sdk-react';
 // import { useMainButton } from '@tma.js/sdk-react';
 
 interface IFormInput {
@@ -33,35 +32,36 @@ const YogiCalc = () => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalBody, setModalBody] = useState<JSX.Element>();
 
-  const mb = useMainButton();
   const formBtnRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (mb) {
-      mb.setParams({
-        text: 'محاسبه',
-        textColor: '#111',
-        isEnabled: true,
-        isVisible: true,
-      });
-    }
-    return mb.on('click', () => {
-      formBtnRef?.current?.click();
-    });
-  }, [mb]);
 
+  // const mb = useMainButton();
   // useEffect(() => {
-  //   const mainBtnHandler = () => {
-  //     formBtnRef.current?.click();
-  //   };
-  //   WebApp.MainButton.setText('محاسبه');
-  //   WebApp.MainButton.isVisible = true;
-  //   WebApp.MainButton.isActive = true;
-  //   WebApp.MainButton.onClick(mainBtnHandler);
+  //   if (mb) {
+  //     mb.setParams({
+  //       text: 'محاسبه',
+  //       textColor: '#111',
+  //       isEnabled: true,
+  //       isVisible: true,
+  //     });
+  //   }
+  //   return mb.on('click', () => {
+  //     formBtnRef?.current?.click();
+  //   });
+  // }, [mb]);
 
-  //   return () => {
-  //     WebApp.MainButton.offClick(mainBtnHandler);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const mainBtnHandler = () => {
+      formBtnRef.current?.click();
+    };
+    WebApp.MainButton.setText('محاسبه');
+    WebApp.MainButton.isVisible = true;
+    WebApp.MainButton.isActive = true;
+    WebApp.MainButton.onClick(mainBtnHandler);
+
+    return () => {
+      WebApp.MainButton.offClick(mainBtnHandler);
+    };
+  }, []);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     // setModalIsOpen(true);
