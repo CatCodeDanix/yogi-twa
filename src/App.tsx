@@ -27,11 +27,11 @@ const App = () => {
         <DotLottieReact src={AstroAnimation} loop autoplay />
       </div>
       <div className="grid grid-cols-1 justify-center gap-6">
-        <NavLink to="/yogi" className="flex-1">
+        {/* <NavLink to="/yogi" className="flex-1">
           <div className="w-full rounded-xl bg-blue-500 p-3 text-lg font-bold">
             {HEADINGS.yogiCalcTitle}
           </div>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/saadat" className="flex-1">
           <div className="w-full rounded-xl bg-blue-500 p-3 text-lg font-bold">
             {HEADINGS.saadatCalcTitle}
